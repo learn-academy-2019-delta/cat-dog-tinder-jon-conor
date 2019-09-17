@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 import {
     BrowserRouter as Router,
     Link,
@@ -8,6 +9,8 @@ import {
     Switch
 } from 'react-router-dom'
 import Cats from './pages/Cats'
+import NewCat from './pages/NewCat'
+import Home from './pages/Home'
 
 class App extends React.Component{
     constructor(props){
@@ -83,14 +86,17 @@ class App extends React.Component{
             <div>
             <Router>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="#home">Dog Tinder</Navbar.Brand>
+                    <Navbar.Brand href="/home">Cat Tinder</Navbar.Brand>
                     <Nav className="mr-auto">
-                      <Nav.Link href="#home">Home</Nav.Link>
-                      <Nav.Link href="#features">Create Profile</Nav.Link>
-                      <Nav.Link href="#pricing">Edit Profile</Nav.Link>
+                      <Nav.Link href="/home">Home</Nav.Link>
+                      <Nav.Link href="/newcat">Create Profile</Nav.Link>
+                      <Nav.Link href="/cats">View Cats</Nav.Link>
                     </Nav>
                 </Navbar>
-                <Route exact path="./pages/Cats" render={( props) => <Cats cats={this.state.cats}/> } />
+
+                <Route exact path="/cats" render={( props) => <Cats cats={this.state.cats}/> } />
+                <Route exact path='/NewCat' component = {NewCat} />
+                <Route exact path='/HOme' component = {Home} />
 
             </Router>
             </div>
