@@ -73,6 +73,11 @@ class NewCat extends Component {
                         </Container>
                     </Jumbotron>
                     </Container>
+                    <Jumbotron>
+                        <center>
+                            <footer>© Jon Simpson || Conor Preston</footer>
+                        </center>
+                    </Jumbotron>
             </div>
         )
     }

@@ -17,15 +17,20 @@ class Cats extends Component {
     }
 
     render(){
+        var styles = {
+            display: 'flex',
+            justifyContent: 'center'
+        }
         return(
             <div>
             <Container>
                 <Jumbotron>
                 <center>
-                <h4>CATS</h4>
+                <h4>Available Cats</h4>
+                <br/>
                 </center>
                     <Container>
-                        <CardGroup>
+                        <CardGroup style={styles}>
                         {this.props.cats.map((cat, index) =>{
                           return (
                             <center>
@@ -37,10 +42,7 @@ class Cats extends Component {
                                         <Card.Title>{cat.name}</Card.Title>
                                         <Card.Text>{cat.age} years old</Card.Text>
                                         <Card.Text>Enjoys: {cat.enjoys}</Card.Text>
-
-                                            <Button variant = 'primary' type= 'submit'>Update</Button>
-                                            <Button variant = 'danger' type= 'submit' onClick = {() => this.handleClick(cat.id)}>Delete</Button>
-
+                                        <button type="button" class="btn btn-outline-danger" onClick = {() => this.handleClick(cat.id)}>Delete</button>
                                     </Card.Body>
                                   </Card>
                               </Row>
@@ -52,6 +54,11 @@ class Cats extends Component {
                       </Container>
                 </Jumbotron>
             </Container>
+            <Jumbotron>
+                <center>
+                    <footer>© Jon Simpson || Conor Preston</footer>
+                </center>
+            </Jumbotron>
             </div>
         )
     }

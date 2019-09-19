@@ -11,7 +11,6 @@ import {
 import Cats from './pages/Cats'
 import NewCat from './pages/NewCat'
 import Home from './pages/Home'
-
 import { getCats } from './api'
 import { createCat } from './api'
 import { destroyCat } from './api'
@@ -59,12 +58,13 @@ class App extends React.Component{
         })
     }
 
-    // handleUpdateCat = (cat) => {
-    //     updateCat(cat)
-    //     .then(updateCat => {
-    //         this.setState({ cats: updateCat })
-    //     })
-    // }
+    handleUpdateCat = (cat) => {
+        updateCat(cat)
+        .then(updateCat => {
+            this.setState({ cats: updateCat })
+            window.location.reload()
+        })
+    }
 
     render(){
         return(
@@ -76,17 +76,16 @@ class App extends React.Component{
                       <Nav.Link href="/home">Home</Nav.Link>
                       <Nav.Link href="/newcat">Create Profile</Nav.Link>
                       <Nav.Link href="/cats">View Cats</Nav.Link>
-
-
                     </Nav>
                 </Navbar>
+                <Switch>
+                    <Route exact path="/cats" render={( props) => <Cats cats={this.state.cats} handleDeleteCat = {this.handleDeleteCat}/> } />
 
-                <Route exact path="/cats" render={( props) => <Cats cats={this.state.cats} handleDeleteCat = {this.handleDeleteCat}/> } />
+                    <Route exact path='/NewCat' render={(props) => <NewCat {...props} success = {this.state.success} handleNewCat = {this.handleNewCat}  /> } />
 
-                <Route exact path='/NewCat' render={(props) => <NewCat {...props} success = {this.state.success} handleNewCat = {this.handleNewCat}  /> } />
 
-                <Route exact path='/Home' component = {Home} />
-
+                    <Route path='/' render ={(props) => <Home {...props} cats = {this.state.cats} /> } />
+                </Switch>
             </Router>
             </div>
         )
@@ -95,3 +94,5 @@ class App extends React.Component{
 }
 
 export default App;
+
+// <Route path='/' component = {Home} /> -------BASIC HOME ROUTE

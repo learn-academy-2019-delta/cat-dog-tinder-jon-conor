@@ -40,17 +40,17 @@ let destroyCat = function(id) {
         })
 }
 
-let updateCat = function(cat) {
-    return fetch(BASE +'/cats/:id', {
+let updateCat = function(id) {
+    return fetch(BASE +'/cats/' + id, {
+		body: JSON.stringify(id),
         headers: {
             'Content-Type': 'application/json'
         },
         method: "PATCH"
     })
-        .then((resp) => {
-            let json = resp.json()
-            return json
-        })
+	.then((resp) => {
+		return getCats()
+	})
 }
 
 export  { getCats }

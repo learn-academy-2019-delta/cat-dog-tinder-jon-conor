@@ -14,9 +14,9 @@ class EditCat extends Component {
     super(props)
         this.state = {
             form: {
-                name: '',
                 age: '',
-                enjoys: ''
+                enjoys: '',
+                img: ''
             }
         }
     }
@@ -27,37 +27,43 @@ class EditCat extends Component {
         this.setState({form: form})
     }
 
+    handleSubmit = (el) => {
+        el.preventDefault()
+        this.props.handleUpdateCat(this.state.form)
+    }
+
+
+    handleClick = (id) => {
+        this.props.handleDeleteCat(id)
+    }
 
     render(){
         return(
             <div>
                 <Container>
-                <Jumbotron>
+                    <Jumbotron>
                         <Container>
                             <center>
-                                <h4>Delete Profile</h4>
+                            <h4>Edit Profile</h4>
                             </center><br/>
                             <Form>
                                 <Form.Group controlId="exampleForm.ControlSelect2">
                                     <Form.Label>Select Cat:</Form.Label>
                                     <Form.Control as="select" >
-                                    {this.props.cats.map((cat, index) => {
+                                        {this.props.cats.map((cat, index) => {
                                         return(
-                                            <option>{cat.name}</option>
-                                        )
-                                    })}
+                                            <option>{cat.name}</option>)})}
                                     </Form.Control>
-                                  </Form.Group>
+                                </Form.Group>
                             </Form>
-                            <center><br/>
-                            <Button variant='dark' onClick={this.handleSubmit} type="submit">Delete</Button>
-                                    {this.props.success &&
-                                        <Redirect to = '/cats' />
-                                    }
-                            </center>
                         </Container>
                     </Jumbotron>
-                    </Container>
+                </Container>
+                <Jumbotron>
+                    <center>
+                        <footer>© Jon Simpson || Conor Preston</footer>
+                    </center>
+                </Jumbotron>
             </div>
         )
     }
