@@ -12,74 +12,59 @@ import Cats from './pages/Cats'
 import NewCat from './pages/NewCat'
 import Home from './pages/Home'
 
+import { getCats } from './api'
+import { createCat } from './api'
+import { destroyCat } from './api'
+import { updateCat } from './api'
+
 class App extends React.Component{
     constructor(props){
-    super(props)
-    this.state = {
-      cats: [
-        {
-          id: 1,
-          name: 'Morris',
-          age: 2,
-          enjoys: "Long walks on the beach."
-        },
-        {
-          id: 2,
-          name: 'Paws',
-          age: 4,
-          enjoys: "Snuggling by the fire."
-        },
-        {
-          id: 3,
-          name: 'Mr. Meowsalot',
-          age: 12,
-          enjoys: "Being in charge."
-      },
-      {
-          id: 4,
-          name: 'Rusty',
-          age: 22,
-          enjoys: "Laying around."
-      },
-      {
-          id: 5,
-          name: 'Garfield',
-          age: 7,
-          enjoys: "Eating Lasagna."
-      },
-      {
-          id: 6,
-          name: 'Raisins',
-          age: 11,
-          enjoys: "Belly rubs."
-      },
-      {
-          id: 7,
-          name: 'Snickers',
-          age: 5,
-          enjoys: "Bringing my owner dead animals."
-      },
-      {
-          id: 8,
-          name: 'Tinkerbell',
-          age: 21,
-          enjoys: "Drinking warm milk."
-      },
-      {
-          id: 9,
-          name: 'Kitty',
-          age: 13,
-          enjoys: "Playing with ball of yarn."
-      },
-      {
-          id: 10,
-          name: 'Roger',
-          age: 9,
-          enjoys: "Laying by the pool."
-      }
-      ]
+        super(props)
+        this.state = {
+          cats: [],
+          success: false,
+          img: ''
+        }
     }
-  }
+
+    componentDidMount() {
+        getCats()
+            .then(APIcats => {
+                this.setState({
+                    cats: APIcats
+                })
+            })
+    }
+
+    handleNewCat = (cat) => {
+        console.log('It got here')
+    	createCat(cat)
+        .then(successCat => {
+            console.log("SUCCESS! New cat: ", successCat);
+            if (typeof successCat.name === 'string') {
+                let successStatus = this.state.success
+                successStatus = true
+                this.setState({ success: successStatus })
+                console.log(this.state.success)
+                window.location.reload()
+            }
+        })
+    }
+
+    handleDeleteCat = (cat) => {
+        destroyCat(cat)
+        .then(deleteCat => {
+            this.setState({ cats: deleteCat })
+            window.location.reload()
+        })
+    }
+
+    // handleUpdateCat = (cat) => {
+    //     updateCat(cat)
+    //     .then(updateCat => {
+    //         this.setState({ cats: updateCat })
+    //     })
+    // }
 
     render(){
         return(
@@ -91,12 +76,16 @@ class App extends React.Component{
                       <Nav.Link href="/home">Home</Nav.Link>
                       <Nav.Link href="/newcat">Create Profile</Nav.Link>
                       <Nav.Link href="/cats">View Cats</Nav.Link>
+
+
                     </Nav>
                 </Navbar>
 
-                <Route exact path="/cats" render={( props) => <Cats cats={this.state.cats}/> } />
-                <Route exact path='/NewCat' component = {NewCat} />
-                <Route exact path='/HOme' component = {Home} />
+                <Route exact path="/cats" render={( props) => <Cats cats={this.state.cats} handleDeleteCat = {this.handleDeleteCat}/> } />
+
+                <Route exact path='/NewCat' render={(props) => <NewCat {...props} success = {this.state.success} handleNewCat = {this.handleNewCat}  /> } />
+
+                <Route exact path='/Home' component = {Home} />
 
             </Router>
             </div>

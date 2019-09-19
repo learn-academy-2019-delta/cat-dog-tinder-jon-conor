@@ -13,7 +13,9 @@ class Home extends Component {
     render(){
         return(
             <div>
+            <Container>
             <Jumbotron>
+            <Container>
             <Carousel>
                 <Carousel.Item>
                     <img
@@ -24,14 +26,14 @@ class Home extends Component {
                     />
                     <Carousel.Caption>
                         <h3>Meet Tinkerbell</h3>
-                        <p>He enjoys drinking warm milk.</p>
+                        <p>She enjoys drinking warm milk.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                       className="d-block w-100"
                       src="https://live.staticflickr.com/2228/2187242989_2eacb23b1e_b.jpg"
-                      alt="Third slide"
+                      alt="Second slide"
                       height='400px'
                     />
 
@@ -54,7 +56,14 @@ class Home extends Component {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
+                <center>
+                    <br/>
+                    <br/>
+                    <h4>Find the Right Cat for You with Cat Tinder!</h4>
+                </center>
+                </Container>
             </Jumbotron>
+            </Container>
             </div>
         )
     }
